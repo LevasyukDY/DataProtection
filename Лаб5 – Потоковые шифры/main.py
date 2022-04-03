@@ -107,30 +107,42 @@ def main():
   generation_random_numbers()  # генерация случайных чисел
   print("Gen: ", gen[:10])
 
+  print()
   print("Enter message: ")  # задание сообщения
   message = input()
+
+  print()
   print("Message: ", [ord(letter) for letter in message])  # коды символов
 
+  print()
   split = str2bin(message)  # получение пар байт сообщения
   print("Split message: ", split)
 
+  print()
   create_gamma(split, gen)  # получение гаммы
   print("Gamma: ", gamma)
 
+  print()
   enc = encrypt(split, gamma)  # шифруем сообщение
   print("Encrypted: ", enc)
 
+  print()
   symbols = bin2str(enc)  # в символьном виде
   print("Symbols: ", symbols)
 
+  print()
   unsplit = str2bin(symbols)  # получаем пары байт
   print("Split symbols: ", unsplit)
 
+  print()
   decr = decrypt(unsplit, gamma)
   print("Decrypted: ", decr)
 
+  print()
   end = bin2str(decr)
   print("Final message: ", end)
+
+  print()
 
 
 if __name__ == '__main__':
