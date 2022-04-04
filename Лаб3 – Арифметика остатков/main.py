@@ -13,7 +13,7 @@ def matrix_mod_inv(matrix, modulus):
     det = int(np.round(np.linalg.det(matrix)))
     det_inv = egcd(det, modulus)[1] % modulus
     matrix_modulus_inv = (
-            det_inv * np.round(det * np.linalg.inv(matrix)).astype(int) % modulus
+        det_inv * np.round(det * np.linalg.inv(matrix)).astype(int) % modulus
     )
 
     return matrix_modulus_inv

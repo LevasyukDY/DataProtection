@@ -2,15 +2,64 @@ import random
 
 
 list1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+
 list2 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 
 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+
 message = "VL"
 byteList = []
 table31 = []
 table15 = []
+
 tableP = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 
 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
 
+
+def encrypt(list, text):
+  print()
+  print('========== Шифрование ==========')
+  bytes = getBin32(list, text)
+  print("32 байта:\n", bytes)
+  print()
+
+  pblock = PBlock(bytes)
+  print("Зашифрованная p-блоком битовая форма:\n", pblock)
+  print()
+
+  sblock = SBlock(pblock)
+  print("Зашифрованная батареей s-блоков битовая форма:\n", sblock)
+  # print(decSBlock(convert))
+  print()
+
+  result = PBlock(sblock)
+  print("Зашифрованная p-блоком битовая форма:\n", result)
+
+  print()
+  mess = getStrFromBin(result)
+  print("Зашифрованное сообщение:", mess)
+  return result
+
+
+def decrypt(text):
+  print()
+  print('========= Расшифрование =========')
+  decrypted = decPBlock(text)
+  print("Расшифрованная p-блоком битовая форма:\n", decrypted)
+
+  print()
+  decS = decSBlock(decrypted)
+  print("Расшифрованная батареей s-блоков битовая форма:\n", decS)
+
+  print()
+  res = decPBlock(decS)
+  print("Расшифрованная p-блоком битовая форма:\n", res)
+
+  print()
+  mess = getStrFromBin(res)
+  print("Расшифрованное сообщение:", mess)
+  print()
+  return res
+  
 
 def randTable():
   random.shuffle(list2)
@@ -102,50 +151,12 @@ def getStrFromBin(string):
   return result
 
 
-def encrypt(list, text):
-  print()
-  bytes = getBin32(list, text)
-  print("32 bytes: ", bytes)
-
-  # Pblock
-  pblock = PBlock(bytes)
-  print("PBlock 1: ", pblock)
-
-  # Sblock
-  sblock = SBlock(pblock)
-  print("SBlock:   ", sblock)
-  # print(decSBlock(convert))
-
-  # Pblock
-  result = PBlock(sblock)
-  print("PBlock 2: ", result)
-
-  mess = getStrFromBin(result)
-  print("Сообщение: ", mess)
-  return result
-
-
-def decrypt(text):
-  print()
-  decrypted = decPBlock(text)
-  print("Dec PBlock 2: ", decrypted)
-
-  decS = decSBlock(decrypted)
-  print("Dec SBlock:   ", decS)
-
-  res = decPBlock(decS)
-  print("Dec PBlock 1: ", res)
-
-  mess = getStrFromBin(res)
-  print("Сообщение: ", mess)
-  print()
-  return res
-
 
 def main():
   print("\n___________СТАРТ ПРОГРАММЫ____________\n")
   print("Введите сообщение для зашифровки (2 символа): ")
   message = input()
+  print()
 
   print("Сообщение: ", message)
   randTable()
@@ -153,9 +164,6 @@ def main():
   a = encrypt(byteList, message)
   decrypt(a)
 
-  # print("List: ", byteList)
-  # print("Rand numbers: ", table15)
-  # print(table31)
 
-
-main()
+if __name__ == '__main__':
+  main()

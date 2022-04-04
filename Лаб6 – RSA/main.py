@@ -49,22 +49,22 @@ def main():
 
   d = inverse(e, eiler)
   if d is None:
-    return print("Exception")
+    return print("ОШИБКА!")
 
   pk = (e, n)
   sk = (d, n)
   keys = pk, sk
-  print("Keys: ", keys)
+  print("Ключи:       ", keys)
 
   message = 14
-  print("Message: ", message)
+  print("Сообщение:   ", message)
 
   # print(pk[0], sk)
   enc = encrypt(message, keys)
-  print("Encrypted: ", enc)
+  print("Зашифровка:  ", enc)
 
   dec = decrypt(enc, keys)
-  print("Decrypted: ", dec)
+  print("Расшифровка: ", dec)
 
   print()
 
